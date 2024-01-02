@@ -1,9 +1,9 @@
-interface ReviewDetails {
-    rating: number;
-    //User Reviwes Details
-    id: number;
-    review: number;
-    date: string;
-  }
+// interface ReviewDetails {
+//     rating: number;
+//     //User Reviwes Details
+//     id: number;
+//     review: number;
+//     date: string;
+//   }
 
-  export default ReviewDetails
+//   export default ReviewDetails

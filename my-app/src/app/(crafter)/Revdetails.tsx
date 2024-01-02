@@ -1,8 +1,8 @@
-interface ReviewDetails {
-    rating: number;
-    //Crafter Reviwes Details
-    id: number;
-    review: number;
-  }
+// interface ReviewDetails {
+//     rating: number;
+//     //Crafter Reviwes Details
+//     id: number;
+//     review: number;
+//   }
 
-  export default ReviewDetails
+//   export default ReviewDetails
