@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/firebase";
 import { CrafterRevDetails } from "@/lib/types";
-import { addDoc, Firestore, doc, documentId, setDoc, getDoc, collection, updateDoc } from 'firebase/firestore';
+import { addDoc, Firestore, doc, documentId, setDoc, getDoc, collection, updateDoc, getDocs } from 'firebase/firestore';
 
 export async function POST(request: NextRequest) {
   const msg = {
@@ -26,34 +26,53 @@ export async function POST(request: NextRequest) {
   }
 }
 
+// export async function GET(request: NextRequest, response: NextResponse) {
+//   try {
+//     const id: string | null = request.nextUrl.searchParams.get("id");
+
+//     if (!id) {
+//       return NextResponse.json({ message: "No ID provided in the request", status: 400 });
+//     }
+
+//     const ReviewsDetailsDocRef = doc(db, "user", "HhRTWOJ2GeeGuVTwgeaj", "reviews", id);
+//     const ReviewsDetailsData = await getDoc(ReviewsDetailsDocRef);
+
+//     if (ReviewsDetailsData.exists()) {
+//       const responseData = {
+//         id: ReviewsDetailsData.id,
+//         ...ReviewsDetailsData.data(),
+//       };
+
+//       return NextResponse.json(responseData);
+//     } else {
+//       return NextResponse.json({ message: "No Reviews Found", status: 404 });
+//     }
+//   } catch (error) {
+//     console.error("Error in GET request:", error);
+//     return NextResponse.json({ error: "Internal Server Error", status: 500 });
+//   }
+// }
+
 export async function GET(request: NextRequest, response: NextResponse) {
   try {
-    const id: string | null = request.nextUrl.searchParams.get("id");
+    // Reference to the "reviews" collection under the specific "crafters" document
+    const RevCollectionReference = collection(db, "user", "HhRTWOJ2GeeGuVTwgeaj", "reviews");
 
-    if (!id) {
-      return NextResponse.json({ message: "No ID provided in the request", status: 400 });
-    }
+    // Get all documents from the "reviews" collection
+    const reviewsSnapshot = await getDocs(RevCollectionReference);
 
-    const ReviewsDetailsDocRef = doc(db, "user", "HhRTWOJ2GeeGuVTwgeaj", "reviews", id);
-    const ReviewsDetailsData = await getDoc(ReviewsDetailsDocRef);
+    // Extract data from each document
+    const responseData = reviewsSnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data() as CrafterRevDetails,
+    }));
 
-    if (ReviewsDetailsData.exists()) {
-      const responseData = {
-        id: ReviewsDetailsData.id,
-        ...ReviewsDetailsData.data(),
-      };
-
-      return NextResponse.json(responseData);
-    } else {
-      return NextResponse.json({ message: "No Reviews Found", status: 404 });
-    }
+    return NextResponse.json(responseData);
   } catch (error) {
     console.error("Error in GET request:", error);
     return NextResponse.json({ error: "Internal Server Error", status: 500 });
   }
 }
-
-
 // export async function GET(request: NextRequest, response: NextResponse) {
 //   try {
 //     const id: string | null = request.nextUrl.searchParams.get("id");

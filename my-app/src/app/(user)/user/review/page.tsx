@@ -103,7 +103,7 @@ export default function Home() {
       setCrafterId(userID);
 
       // Assuming you have an API endpoint for adding reviews with both ID and rating
-      await axios.post('/api/crafter/reviews', { id: userID, rating: starRating });
+      await axios.post('/api/user/reviews', { id: userID, rating: starRating });
 
       setMessage('Review and ID added successfully!');
       setReviewSubmitted(true);
@@ -119,7 +119,7 @@ export default function Home() {
   const fetchReviews = async () => {
     try {
       // Fetch reviews using axios.get
-      const response = await axios.get<Review[]>('/api/crafter/reviews');
+      const response = await axios.get<Review[]>('/api/user/reviews');
 
       // Set the reviews state with the fetched data
       setReviews(response.data);
