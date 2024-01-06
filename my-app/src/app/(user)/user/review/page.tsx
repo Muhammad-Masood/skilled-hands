@@ -3,6 +3,10 @@ import { Button } from "@/components/ui/button";
 import React, { useState, useEffect } from "react";
 import { Star } from 'lucide-react';
 import axios from 'axios';
+import Image from "next/image"
+import Logo from "/public/logo.png"
+import img from "/public/img.png"
+import Wrapper from "@/components/ui/wrapper";
 
 // Define the Review interface
 interface Review {
@@ -145,17 +149,30 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="mt-8 mx-96 items-center">
-      <div className="mt-8 mx-10 items-center">
+    <Wrapper>
+          
+      {/* LOGO */}
+      <div className="flex justify-between">
+        <Image src={Logo} alt="SKILLED HANDS" height={80} width={80}/>
+        <Image src={img} alt="SK" height={90} width={90}/>
 
-        <div className="mt-8 mx-10 items-center my-2 hover:scale-y-110 duration-300 rounded-md flex flex-col flex-1
+      </div>
+      {/* NAV Bar */}
+      <div className="bg-teal-100 h-36 blur-2xl w-full absolute -z-50 top-0"></div>
+
+
+      <div className=" mt-20 flex gap-x-80">
+      
+      {/* Right Content */}
+      <div className="">
+      <div className="absolute bg-teal-100 h-[600px] w-[700px] rounded-full -z-50 blur-3xl -right-40 top-[150px]"></div>
+        <h2 className="mx-8 text-5xl font-bold whitespace-pre-line text-black">User Review Section</h2>
+        <p className="mx-8 max-w-screen-md mt-3 text-xl text-slate-600">First Review the User, than Accept Proposal according to your Satisfaction.</p>
+        <div className="shadow-2xl basis-8/12 mt-8 mx-10 my-2 hover:scale-y-110 duration-100 rounded-md flex flex-col flex-1
             justify-center relative px-8 py-2 border-4 haveBorder: border-indigo-200 border-y-indigo-500">
-          <h1 className="text-3xl font-bold">FEEDBACK</h1>
           <ul>
             {reviews.map((review, index) => (
-              // <div className="my-2 hover:scale-y-110 duration-300 rounded-md flex flex-col flex-1
-              //  justify-center relative px-8 py-2 border-4 haveBorder: border-indigo-200 border-y-indigo-500">
-            <div className="mt-6">
+              <div className="mt-6">
               <div className=" text-slate-700">{`ID: ${review.id}`}</div>
               <div className=" text-slate-700">{`Rating: ${review.rating}`}</div>
             </div>  
@@ -163,8 +180,9 @@ export default function Home() {
           </ul>
           </div>
       </div> 
-
-      <div className="flex flex-col items-center mt-8">
+      
+      {/* Left Content */}
+      <div className="flex flex-col items-center mt-20">
         <label htmlFor="userID" className="mt-4">Enter ID:</label>
         <input
           type="text"
@@ -172,7 +190,7 @@ export default function Home() {
           value={userID}
           onChange={(e) => setUserID(e.target.value)}
           className="border border-gray-400 p-2 rounded"
-        />
+          />
         <div className="flex flex-row gap-x-3 mt-8">{renderStars()}</div>
         <Button className="transition ease-in-out delay-0 bg-black hover:-translate-y-1 hover:scale-110 hover:bg-blue-500 duration-500 mx-10 mt-10 gap-x-6 gap-y-8" onClick={handleAddReview}>Add Review</Button>
         <Button className="transition ease-in-out delay-0 bg-black hover:-translate-y-1 hover:scale-110 hover:bg-blue-500 duration-500 mx-10 mt-10 gap-x-6 gap-y-8" onClick={handleSubmitReviewAndId} disabled={reviewSubmitted}>Submit Review</Button>
@@ -182,13 +200,14 @@ export default function Home() {
         //   <h2>Reviews:</h2>
         //   <ul>
         //     {reviews.map((review, index) => (
-        //       <li key={index}>{`ID: ${review.id}, Rating: ${review.rating}`}</li>
-        //     ))}
-        //   </ul>
+          //       <li key={index}>{`ID: ${review.id}, Rating: ${review.rating}`}</li>
+          //     ))}
+          //   </ul>
         // </div> */}
 
         {reviewSubmitted && <p className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300 text-black font-semibold">{message}</p>}
       </div>
     </div>
+  </Wrapper>
   );
 }
