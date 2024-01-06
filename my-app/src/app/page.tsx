@@ -9,7 +9,7 @@ import React from "react"
 
 export default function Home() {
   return (
-    <div>
+    <div className='mt-56 flex flex-col items-center'>
       Landing Page
       <div>
         <Button className='text-red-500'>
