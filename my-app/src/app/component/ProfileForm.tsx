@@ -16,13 +16,14 @@ import { Input } from "@/components/ui/input"
 import axios from 'axios';
 import { Crafter} from "@/lib/types";
 import { useAuth } from "@clerk/nextjs";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
     id: z.string().min(2).max(50),
     name: z.string().min(3),
     bio: z.string().min(5),
     domain: z.string().min(3).max(25),
-    location: z.string().min(10).max(50),
+    location: z.string().max(50),
     contact: z.string().min(11),
 });
 
@@ -37,7 +38,7 @@ export function ProfileForm({initialProfileData, update}:{initialProfileData: Cr
       bio: bio,
       domain: domain,
       contact: contact,
-      location: location
+      location: location,
     }
   })
 
@@ -45,13 +46,17 @@ export function ProfileForm({initialProfileData, update}:{initialProfileData: Cr
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if(update){
       const response = await axios.patch("/api/crafter/profile",values);
+      console.log(response);
+      toast.success("Profile Updated Successfully!");
     } else {
       const response = await axios.post("/api/crafter/profile", values);
+      console.log(response);
+      toast.success("Profile Created Successfully!");
     }
   }
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="px-20 py-4">
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField

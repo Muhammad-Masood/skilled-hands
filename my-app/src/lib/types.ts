@@ -8,14 +8,21 @@ export type Crafter = {
     domain: string;
     location: string;
     contact: string;
-    reviews: Review[];
+    reviews: Number[];
 }
+
+export type post = {
+    id : string;
+    description: string;
+    image: string;
+}
+
 export type Review = {
     id: string;
     review: number;
 }
 
-export type NavbarLink = {
+export type NavbarLink= {
     name: string;
     path: string;
 };

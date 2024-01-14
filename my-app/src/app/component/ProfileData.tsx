@@ -1,9 +1,9 @@
 "use client"
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { ProfileForm } from '../Profile_form';
 import { Crafter } from '@/lib/types';
 import { useAuth } from '@clerk/nextjs';
+import { ProfileForm } from './ProfileForm';
 
 const ProfileData = () => {
     const [profileData, setProfileData] = useState<Crafter | undefined>();

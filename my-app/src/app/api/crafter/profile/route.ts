@@ -1,5 +1,3 @@
-
-
 // GET POST PATCH PUT DELETE
 // data -> body -> large data
 // data -> url (searchparams) -> small data
@@ -7,16 +5,12 @@
 import { db } from "@/firebase";
 import { Crafter } from "@/lib/types";
 import { DocumentData, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import { INTERNALS } from "next/dist/server/web/spec-extension/request";
+//import { INTERNALS } from "next/dist/server/web/spec-extension/request";
 import { NextRequest, NextResponse } from "next/server";
 
 const obj = {
     message: "Profile data stored!"
 }
-
-/**
- * id 
- */
 
 export async function POST(request:NextRequest){
     const data:Crafter = await request.json();

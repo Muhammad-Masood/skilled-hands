@@ -1,16 +1,20 @@
-import '../globals.css'
-import { NavBar } from '../component/crafter/Navbar'
+import { ClerkProvider } from "@clerk/nextjs";
+import { NavBar } from "../component/Navbar";
+import "../globals.css";
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
+    
     <html lang="en">
-      <body>
-        <NavBar />
-    {children}    
-      </body>
+      <ClerkProvider>
+        <body className="bg-gradient-to-l from-cyan-500 to-sky-100 h-full">
+          <NavBar />
+          {children}
+        </body>
+        </ClerkProvider>
     </html>
-  )
+  );
 }

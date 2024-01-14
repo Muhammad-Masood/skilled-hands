@@ -11,7 +11,7 @@ import {
     navigationMenuTriggerStyle,
   } from "@/components/ui/navigation-menu";
   import { NavbarLink } from "@/lib/types";
-  import { navbarLinks } from "@/lib/utils";
+  import { crafterNavbarLinks } from "@/lib/utils";
   import { SignIn, SignInButton, UserButton } from "@clerk/nextjs";
   import Link from "next/link";
   import { useAuth } from "@clerk/nextjs";
@@ -35,15 +35,15 @@ import {
       <div className="py-[2rem]">
       <div className="hidden lg:block">
         <div className="flex items-center justify-center space-x-20">
-          <Link href="/" className="">
+          <Link href="/crafter" className="">
             Skilled Hands
           </Link>
           <div className="flex space-x-4">
-            {navbarLinks.map((link: NavbarLink, index: number) => (
+            {crafterNavbarLinks.map((link: NavbarLink, index: number) => (
               <NavigationMenu key={index} orientation="horizontal">
                 <NavigationMenuList>
                   <NavigationMenuItem>
-                    <Link href={link.path} legacyBehavior passHref>
+                    <Link href={link.name === "You"?link.path+`/${userId}` : link.path} legacyBehavior passHref>
                       <NavigationMenuLink
                         className={navigationMenuTriggerStyle()}
                       >
@@ -59,7 +59,7 @@ import {
             {!userId ? (
               <SignInButton mode="modal" />
             ) : (
-              <UserButton afterSignOutUrl="/" />
+              <UserButton afterSignOutUrl="/crafter/profile" />
             )}
           </div>
         </div>
@@ -72,7 +72,7 @@ import {
             </SheetTrigger>
             <SheetContent className="w-[230px]">
               <SheetHeader className="gap-y-1">
-                {navbarLinks
+                {crafterNavbarLinks
                   .slice(0, 6)
                   .map((category: NavbarLink, index: number) => (
                     <SheetTitle

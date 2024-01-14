@@ -1,5 +1,5 @@
 import { db } from "@/firebase";
-import { Profile } from "@/lib/types";
+import { Crafter } from "@/lib/types";
 import { doc ,query ,CollectionReference, DocumentData, collection, getDocs } from "firebase/firestore";
 import { NextRequest, NextResponse } from "next/server";
 

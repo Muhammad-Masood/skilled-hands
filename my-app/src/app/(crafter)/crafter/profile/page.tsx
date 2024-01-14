@@ -1,12 +1,14 @@
 "use client"
-import { ProfileForm } from '@/app/component/Profile_form'
-import ProfileData from '@/app/component/crafter/ProfileData'
+import ProfileData from '@/app/component/ProfileData'
+import { ProfileForm } from '@/app/component/ProfileForm'
 import { Button } from '@/components/ui/button'
 import { Crafter } from '@/lib/types'
 import { SignIn, useAuth } from '@clerk/nextjs'
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 
 const page = () => {
+  const [profileData, setProfileData] = useState(null);
   const { userId } = useAuth();
   const emptyDefaultValues: Crafter = {
     id: "",
@@ -18,16 +20,24 @@ const page = () => {
     reviews: [],
   }
 
-  // get profile data through api
-  const response = false;
+  useEffect(() => {
+    async function fetchProfile() {
+      const response = await axios.get(`/api/crafter/profile?id=${userId}`);
+      setProfileData(response.data.userId);
+    }
+    if(userId){
+      fetchProfile();
+    } 
+  }, []);
 
   return (
     <div>
       {
         userId ? (
-          !response ? (
+          profileData==null ? (
             <div >
-              <h1 text-align="centre">Create Profile </h1>
+              <p>Profile Data {profileData}</p>
+              <h1 className="text-center">Create Profile </h1>
               <ProfileForm initialProfileData={emptyDefaultValues} update={false} />
             </div>
           ) : (
