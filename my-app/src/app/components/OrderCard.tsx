@@ -36,7 +36,7 @@ export function OrderCard({ order }: { order: OrderExtend }) {
   const cancelOrder = async () => {
     try {
       toast.loading("Cancelling order...");
-      await axios.delete(`/api/user/orders?id=${id}`);
+      await axios.delete(`${process.env.PORT_URL}/api/user/orders?id=${id}`);
       toast.success("Order cancelled successfully");
     } catch (error) {
       toast.dismiss();
@@ -48,7 +48,7 @@ export function OrderCard({ order }: { order: OrderExtend }) {
   const finishOrder = async () => {
     try {
       const loadToastId = toast.loading("Marking order as completed...");
-      await axios.patch(`/api/user/order?id=${id}`);
+      await axios.patch(`${process.env.PORT_URL}/api/user/order?id=${id}`);
       toast.dismiss(loadToastId);
       toast.success("Order finished successfully");
       router.replace("/orders");
@@ -63,7 +63,7 @@ export function OrderCard({ order }: { order: OrderExtend }) {
     try {
       toast.loading("Posting your review...");
       await axios.patch(
-        `/api/user/review?id=${crafterId}&review=${searchParams.get(`rating`)}`
+        `${process.env.PORT_URL}/api/user/review?id=${crafterId}&review=${searchParams.get(`rating`)}`
       );
       toast.success("Thanks for the feedback...");
       setIsFinishBoxOpen(true);

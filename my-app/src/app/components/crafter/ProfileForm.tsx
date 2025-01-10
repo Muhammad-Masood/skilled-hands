@@ -45,10 +45,10 @@ export function ProfileForm({initialProfileData, update}:{initialProfileData: Cr
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if(update){
-      const response = await axios.patch("/api/crafter/profile",values);
+      const response = await axios.patch(`${process.env.PORT_URL}/api/crafter/profile`,values);
       toast.success("Profile Updated Successfully!");
     } else {
-      const response = await axios.post("/api/crafter/profile", values);
+      const response = await axios.post(`${process.env.PORT_URL}/api/crafter/profile`, values);
       toast.success("Profile Created Successfully!");
     }
   }

@@ -9,15 +9,19 @@ import axios from "axios";
 import Link from "next/link";
 
 const page = async () => {
-  const crafters: Crafter[] = (
-    await axios.get(`${process.env.PORT_URL}/api/crafter/profiles`)
-  ).data;
+  const crafters: Crafter[] =
+    // await axios.get(`/api/crafter/profiles`)
+    (await axios.get(`${process.env.PORT_URL}/api/crafter/profiles`)).data;
   return (
     <div className="px-[6rem] space-y-12">
       <p className="text-3xl">Explore Crafters</p>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 lg:p-0">
         {crafters.map((crafter: Crafter, index: number) => (
-          <Link href={`/crafter/profile/${crafter.id}`} className="" key={index}>
+          <Link
+            href={`/crafter/profile/${crafter.id}`}
+            className=""
+            key={index}
+          >
             <Card className="opacity-80">
               <CardHeader>
                 <CardTitle>{crafter.name}</CardTitle>

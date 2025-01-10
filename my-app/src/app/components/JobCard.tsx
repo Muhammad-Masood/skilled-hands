@@ -65,7 +65,7 @@ export function JobCard({ props }: { props: JobCardProps }) {
   useEffect(() => {
     const fetchHasSentProposal = async () => {
       const response = await axios.get(
-        `/api/crafter/verify/proposal?id=${userId}&job_id=${job.id}`
+        `${process.env.PORT_URL}/api/crafter/verify/proposal?id=${userId}&job_id=${job.id}`
       );
       setHasSentProposal(response.data.hasSentProposal);
     };
@@ -102,10 +102,10 @@ export function JobCard({ props }: { props: JobCardProps }) {
     const toastId = toast.loading("Sending proposal...");
     try {
       const alreadySubmitted: boolean = (
-        await axios.get(`/api/crafter/proposal/crafter/${userId}`)
+        await axios.get(`${process.env.PORT_URL}/api/crafter/proposal/crafter/${userId}`)
       ).data;
       if (!alreadySubmitted) {
-        const response = await axios.post("/api/crafter/proposal", {
+        const response = await axios.post(`${process.env.PORT_URL}/api/crafter/proposal`, {
           jobId: job.id,
           crafterId: userId,
           proposal: values.proposal,
@@ -137,7 +137,7 @@ export function JobCard({ props }: { props: JobCardProps }) {
         crafterId: crafterData!.id,
         status: "pending",
       };
-      const postOrderResponse = await axios.post(`/api/user/order`, orderData);
+      const postOrderResponse = await axios.post(`${process.env.PORT_URL}/api/user/order`, orderData);
       console.log(postOrderResponse);
       toast.dismiss();
       toast.success("Crafter hired successfully!");
@@ -153,7 +153,7 @@ export function JobCard({ props }: { props: JobCardProps }) {
     try {
       toast.loading("Getting crafter data...");
       const _crafterData: Crafter | null = (
-        await axios.get(`/api/crafter/profile?id=${crafterId}`)
+        await axios.get(`${process.env.PORT_URL}/api/crafter/profile?id=${crafterId}`)
       ).data;
       console.log(_crafterData);
       setCrafterData(_crafterData!);
