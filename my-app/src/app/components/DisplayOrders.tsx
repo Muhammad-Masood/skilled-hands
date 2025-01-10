@@ -4,7 +4,7 @@ import { OrderExtend } from "../()/orders/page";
 
 const DisplayJobs = async ({ ordersData }: { ordersData: OrderExtend[] }) => {
   return ordersData !== null ? (
-    <div className="space-y-8">
+    <div className="space-y-10">
       <p className="text-3xl pl-5">Your Orders</p>
       <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-y-6">
         {ordersData.length > 0 ? (

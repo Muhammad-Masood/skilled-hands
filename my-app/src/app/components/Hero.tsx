@@ -16,13 +16,14 @@ import {
 import { usePathname } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export function Hero() {
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState<Crafter[]>([]);
   const pathName = usePathname();
 
-  const handleSearch = async (e:any) => {
+  const handleSearch = async (e: any) => {
     e.preventDefault();
     const toastId: string = toast.loading(
       "Getting crafters based on domain..."
@@ -55,7 +56,7 @@ export function Hero() {
             Hire the most experienced workers in your area!
           </p>
           {/* <div className="lg:bg-white flex-col mb-6 w-full md:px-4 py-2 flex sm:flex-row items-center justify-center gap-y-3"> */}
-            {/* <Search className="text-2xl text-indigo-600 mx-2 hidden sm:flex" />
+          {/* <Search className="text-2xl text-indigo-600 mx-2 hidden sm:flex" />
             <input
               onChange={(e) => setSearch(e.target.value)}
               type="text"
@@ -68,29 +69,29 @@ export function Hero() {
             >
               Search
             </button> */}
-            <form
-              onSubmit={handleSearch}
-              className="relative w-full max-w-2xl mx-auto mb-6"
-            >
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                  type="text"
-                  placeholder="Search..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="pl-10 pr-20 h-12 text-base"
-                />
-                <Button
-                  type="submit"
-                  variant="default"
-                  size="sm"
-                  className="absolute right-1 top-1/2 -translate-y-1/2 h-10"
-                >
-                  Search
-                </Button>
-              </div>
-            </form>
+          <form
+            onSubmit={handleSearch}
+            className="relative w-full max-w-2xl mx-auto mb-6"
+          >
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                type="text"
+                placeholder="Search..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-10 pr-20 h-12 text-base"
+              />
+              <Button
+                type="submit"
+                variant="default"
+                size="sm"
+                className="absolute right-1 top-1/2 -translate-y-1/2 h-10"
+              >
+                Search
+              </Button>
+            </div>
+          </form>
           {/* </div> */}
           <div className=" w-full px-6 flex items-center justify-start flex-wrap">
             <div className="flex items-center justify-center">
@@ -111,16 +112,22 @@ export function Hero() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 lg:p-0">
           {searchResults &&
             searchResults.map((crafter: Crafter, index: number) => (
-              <Card className="m-4 md:m-2 lg:m-20 opacity-80" key={index}>
-                <CardHeader>
-                  <CardTitle>{crafter.name}</CardTitle>
-                  <CardDescription className="space-y-2">
-                    <p>{crafter.domain}</p>
-                    <p>{crafter.location}</p>
-                    <p>{crafter.contact}</p>
-                  </CardDescription>
-                </CardHeader>
-              </Card>
+              <Link
+                href={`/crafter/profile/${crafter.id}`}
+                className=""
+                key={index}
+              >
+                <Card className="m-4 md:m-2 lg:m-20 opacity-80" key={index}>
+                  <CardHeader>
+                    <CardTitle>{crafter.name}</CardTitle>
+                    <CardDescription className="space-y-2">
+                      <p>{crafter.domain}</p>
+                      <p>{crafter.location}</p>
+                      <p>{crafter.contact}</p>
+                    </CardDescription>
+                  </CardHeader>
+                </Card>
+              </Link>
             ))}
         </div>
       </div>

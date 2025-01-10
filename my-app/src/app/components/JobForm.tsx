@@ -31,7 +31,7 @@ export function JobForm({userId}:{userId: string}) {
   async function onSubmit(values: z.infer<typeof jobFormSchema>) {
     toast.loading("Posting Job...");
     console.log(values);
-    const response = await axios.post(`${process.env.PORT_URL}/api/user/job`, values);
+    const response = await axios.post("/api/user/job", values);
     if (response.status === 200) {
       toast.dismiss();
       toast.success("Job posted successfully.");

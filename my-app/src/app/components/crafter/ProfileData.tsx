@@ -10,7 +10,7 @@ const ProfileData = () => {
     const {userId} = useAuth();
     useEffect(() => {
         async function fetchProfile() {
-            const response = await axios.get(`${process.env.PORT_URL}/api/crafter/profile?id=${userId}`);
+            const response = await axios.get(`/api/crafter/profile?id=${userId}`);
             setProfileData(response.data);
         }
         if(userId){

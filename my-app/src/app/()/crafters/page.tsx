@@ -8,6 +8,8 @@ import { Crafter } from "@/lib/types";
 import axios from "axios";
 import Link from "next/link";
 
+export const revalidate = 0;
+
 const page = async () => {
   const crafters: Crafter[] =
     // await axios.get(`/api/crafter/profiles`)
