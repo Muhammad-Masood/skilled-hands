@@ -25,19 +25,20 @@ import {
 } from "@/components/ui/sheet";
 import { useState } from "react";
 import { Menu } from "lucide-react";
-import { Ubuntu } from 'next/font/google'
+import { Ubuntu } from "next/font/google";
+import { Button } from "@/components/ui/button";
 
 const ubuntu = Ubuntu({
-  subsets: ['latin'],
-  weight: '400'
-})
+  subsets: ["latin"],
+  weight: "400",
+});
 
-export function NavBar({ pannel }: { pannel: "crafter" | "main"}) {
+export function NavBar({ pannel }: { pannel: "crafter" | "main" }) {
   const [open, setOpen] = useState(false);
   const { userId } = useAuth();
 
   return (
-      <div className={`py-[2rem] ${ubuntu.className}`}>
+    <div className={`py-[2rem] ${ubuntu.className}`}>
       <div className="hidden lg:block">
         <div className="flex items-center justify-between space-x-20 px-[6rem]">
           <Link href="/" className={`text-lg`}>
@@ -49,7 +50,15 @@ export function NavBar({ pannel }: { pannel: "crafter" | "main"}) {
                 <NavigationMenu key={index} orientation="horizontal">
                   <NavigationMenuList>
                     <NavigationMenuItem>
-                      <Link href={link.name.toLowerCase() === "you"?`/crafter/profile/${userId}`:link.path} legacyBehavior passHref>
+                      <Link
+                        href={
+                          link.name.toLowerCase() === "you"
+                            ? `/crafter/profile/${userId}`
+                            : link.path
+                        }
+                        legacyBehavior
+                        passHref
+                      >
                         <NavigationMenuLink
                           className={navigationMenuTriggerStyle()}
                         >
@@ -62,7 +71,10 @@ export function NavBar({ pannel }: { pannel: "crafter" | "main"}) {
               )
             )}
           </div>
-          <div>
+          <div className="space-x-8 flex items-center">
+            <Button>
+              <Link href={"/crafter/profile"}>Become a Crafter</Link>
+            </Button>
             {!userId ? (
               <SignInButton mode="modal" />
             ) : (

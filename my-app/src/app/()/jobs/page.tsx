@@ -6,21 +6,21 @@ import axios from "axios";
 // import { headers } from 'next/headers';
 
 export default async function page(request: Request) {
-  const { userId } = auth();
+  // const { userId } = auth();
   // const headersList = headers()
   // const baseURL:string = `https://${headersList.get('host')}`;
 
-  const jobs: Job[] = userId
-    ? (await axios.get(`${process.env.PORT_URL}/api/user/jobs`)).data
-    : [];
+  const jobs: Job[] = (await axios.get(`${process.env.PORT_URL}/api/user/jobs`))
+    .data;
 
-  return userId ? (
+  return (
     <div className="pt-5 px-20">
       <DisplayJobs jobsData={jobs} />
     </div>
-  ) : (
-    <div className="flex items-center justify-center">
-      <SignIn />
-    </div>
   );
+  // : (
+  //   <div className="flex items-center justify-center">
+  //     <SignIn />
+  //   </div>
+  // );
 }

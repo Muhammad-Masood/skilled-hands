@@ -14,13 +14,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { usePathname } from "next/navigation";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export function Hero() {
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState<Crafter[]>([]);
   const pathName = usePathname();
 
-  const handleSearch = async () => {
+  const handleSearch = async (e:any) => {
+    e.preventDefault();
     const toastId: string = toast.loading(
       "Getting crafters based on domain..."
     );
@@ -51,8 +54,8 @@ export function Hero() {
           <p className="md:text-lg sm:text-sm text-xs mb-10 text-gray-500">
             Hire the most experienced workers in your area!
           </p>
-          <div className="lg:bg-white flex-col mb-6 w-full md:px-4 py-2 flex sm:flex-row items-center justify-center gap-y-3">
-            <Search className="text-2xl text-indigo-600 mx-2 hidden sm:flex" />
+          {/* <div className="lg:bg-white flex-col mb-6 w-full md:px-4 py-2 flex sm:flex-row items-center justify-center gap-y-3"> */}
+            {/* <Search className="text-2xl text-indigo-600 mx-2 hidden sm:flex" />
             <input
               onChange={(e) => setSearch(e.target.value)}
               type="text"
@@ -64,8 +67,31 @@ export function Hero() {
               className="px-3 py-2 my-2 sm:my-0 border border-indigo-600 rounded uppercase tracking-widest mx-4   text-white bg-indigo-600 transition-all duration-700 hover:bg-transparent font-semibold text-base hover:text-indigo-600"
             >
               Search
-            </button>
-          </div>
+            </button> */}
+            <form
+              onSubmit={handleSearch}
+              className="relative w-full max-w-2xl mx-auto mb-6"
+            >
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  type="text"
+                  placeholder="Search..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="pl-10 pr-20 h-12 text-base"
+                />
+                <Button
+                  type="submit"
+                  variant="default"
+                  size="sm"
+                  className="absolute right-1 top-1/2 -translate-y-1/2 h-10"
+                >
+                  Search
+                </Button>
+              </div>
+            </form>
+          {/* </div> */}
           <div className=" w-full px-6 flex items-center justify-start flex-wrap">
             <div className="flex items-center justify-center">
               <BookmarkCheck className="text-indigo-600 text-xl mx-2" />
